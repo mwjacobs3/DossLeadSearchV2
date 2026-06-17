@@ -26,8 +26,25 @@ For every run, a list of **net-new, ICP-fit CPG companies not yet in Salesforce*
 | Manufacturing model & current systems (if known) | Publication / ZoomInfo / web |
 | ICP fit score + tier + rationale | This pipeline (see `playbook/scoring.md`) |
 
-Delivered as a **Google Sheet** in your Drive plus a **short email** to `max@doss.com` with the
+Delivered into a **single master Google Sheet** (`DOSS Lead Search — Master Tracker`) in your
+Drive, with **each run added as its own dated section** (newest on top) and **cross-run dedup** so
+the same company isn't reported twice — plus a **short email** to `max@doss.com` with the new
 highlights and a link.
+
+> The Google Drive integration can't edit a Sheet in place, so each run rebuilds the master sheet
+> from the append-only `runs/leads_master.csv`. The file URL changes on each rebuild — **bookmark
+> the [DOSS Lead Search folder](https://drive.google.com/drive/folders/1C0jSPsEvAmBmVgdtALCNv22dkR0NxQCK)**, not the file.
+
+## Scheduling (every 3 hours)
+Runs are triggered from **Claude Code on the web** — create a scheduled trigger on this repo with
+the prompt *"Run the DOSS lead search."* at your desired cadence (`config/settings.yaml →
+schedule.cadence`, currently `every_3_hours`). The pipeline **no-ops** (no new section, no email)
+when a run finds zero net-new companies, so frequent runs stay cheap and quiet. See
+https://code.claude.com/docs/en/claude-code-on-the-web for trigger setup.
+
+> Heads-up on cadence: trade publications and the ZoomInfo lookalike pool change slowly, so most
+> 3-hourly runs will find nothing new (and still spend some ZoomInfo credits). Daily or weekly is
+> usually plenty; 3-hourly is supported but largely redundant.
 
 ---
 

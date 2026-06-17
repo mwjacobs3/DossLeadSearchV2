@@ -49,5 +49,28 @@ delivery:
   google_drive:
     enabled: true
     folder_name: "DOSS Lead Search"   # created in My Drive if it doesn't exist
+    folder_id: "1C0jSPsEvAmBmVgdtALCNv22dkR0NxQCK"
     format: google_sheet
-    # One sheet per run, titled with the run date (see RUNBOOK step 6).
+    # SINGLE MASTER TRACKER, sectioned by run (newest section on top).
+    master_sheet_title: "DOSS Lead Search — Master Tracker"
+    # NOTE: the Google Drive MCP cannot append to / edit a Sheet in place — every write
+    # creates a new file. So each run the agent REBUILDS the master sheet from the cumulative
+    # dataset (runs/leads_master.csv) and deletes the prior copy. The file URL therefore changes
+    # each run; bookmark the FOLDER (stable), not the file. See playbook/RUNBOOK.md step 7.
+    cumulative_dataset: runs/leads_master.csv   # append-only source of truth (in git)
+    section_order: newest_first
+
+# De-dup across runs as well as against Salesforce: never re-surface a company already reported
+# in a prior run (tracked in runs/leads_master.csv + runs/log.md).
+dedup_across_runs: true
+
+schedule:
+  # Desired cadence. Actual scheduling is configured as a trigger in Claude Code on the web
+  # (https://code.claude.com/docs/en/claude-code-on-the-web) — the repo can't self-schedule.
+  cadence: every_3_hours
+  prompt: "Run the DOSS lead search."
+  # Cost/▾noise guidance: trade publications and the ZoomInfo lookalike pool change slowly, so
+  # most 3-hourly runs will find 0 net-new and consume ZoomInfo credits for little gain. The
+  # pipeline is built to NO-OP gracefully (no new section, no email) when there are no net-new
+  # companies — see RUNBOOK step 6b. Consider daily/weekly if credit usage becomes a concern.
+  skip_report_when_no_new: true

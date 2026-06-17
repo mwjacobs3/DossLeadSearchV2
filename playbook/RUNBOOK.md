@@ -86,6 +86,9 @@ For each screened candidate, determine if it already exists in Salesforce. **Fol
   And a name/SOSL fallback (see dedup.md).
 - If **any** match is found (any status, incl. churned/closed-lost/disqualified), mark the
   candidate **KNOWN** and exclude it. Record the matched Account Id + status in the run log.
+- **Cross-run dedup (`settings.dedup_across_runs`):** also drop any candidate already present in
+  `runs/leads_master.csv` (reported in a prior run). The master CSV + `runs/log.md` are the
+  pipeline's memory so 3-hourly runs don't re-surface the same companies.
 - Keep only **net-new** candidates. Continue until you have enough to reach the target after
   enrichment; loop back to Step 2 if the net-new pool is too small.
 
@@ -106,22 +109,35 @@ For each screened candidate, determine if it already exists in Salesforce. **Fol
 - Sort by `run.sort_by` and take the top `target_company_count`. Keep a few flagged "Stretch"
   entries only if the strong pool is short.
 
-## Step 7 — Build the Google Sheet
-- Find or create the Drive folder `delivery.google_drive.folder_name` (search via Drive MCP;
-  create with mimeType `application/vnd.google-apps.folder` if missing).
-- Create a Google Sheet titled `DOSS Lead Search — {RUN_DATE}` in that folder. Use the exact
-  columns from `templates/report_sheet_schema.md`, header row first, one row per company.
-  (Create as `text/csv` content converting to a Google Sheet, or a Google Sheet file — see
-  template notes.)
-- Capture the resulting **file URL**.
+### Step 6b — No-op when nothing is new (`settings.schedule.skip_report_when_no_new`)
+If after dedup there are **zero net-new** companies (common on frequent 3-hourly runs), **stop
+here**: do not rebuild the sheet, do not email. Just append a one-line "no net-new" entry to
+`runs/log.md`. This keeps frequent runs cheap and quiet.
+
+## Step 7 — Update the master tracker (single sheet, sectioned by run)
+The report is **one master sheet** (`delivery.google_drive.master_sheet_title`), with each run as
+its own dated section, newest on top. The Google Drive MCP **cannot edit a Sheet in place**, so
+rebuild it from the cumulative dataset:
+1. **Append** this run's rows to `runs/leads_master.csv` (the append-only source of truth in git),
+   tagging each row with its `Run Date` and a section label.
+2. In the Drive folder (`delivery.google_drive.folder_id`), **find the existing master sheet**
+   (search by title). 
+3. **Recreate** the master sheet from the full `leads_master.csv`, laid out as dated sections
+   (see `templates/report_sheet_schema.md` → "Master tracker layout"): a section banner row
+   (`=== Run: {RUN_DATE} — {N} net-new ({focus}) ===`), then the column header row, then the run's
+   rows; repeat for each prior run below, newest first.
+4. **Remove the prior master sheet** so only one remains. NOTE: the current Drive MCP exposes no
+   delete/trash tool, so if you can't delete programmatically, leave the prior copy and tell Max to
+   delete the older "Master Tracker" copy (sort the folder by modified date — keep the newest).
+5. Capture the new file URL, but tell Max to **bookmark the folder** (stable) rather than the file
+   (its URL changes each rebuild). 
 
 ## Step 8 — Email the summary
-- Using the Gmail MCP, send to `delivery.email.to` an email built from
-  `templates/email_summary_template.md`: counts (scanned / net-new / reported), the **top 5**
-  companies with one-line rationales, and the **link to the Sheet**.
+- Only if there were net-new companies this run. Using the Gmail MCP, send (or draft — the
+  connected Gmail MCP currently supports **drafts only**, so create a draft and tell Max) to
+  `delivery.email.to` an email from `templates/email_summary_template.md`: counts, the **top 5**
+  new companies with one-line rationales, the **master sheet link**, and the **folder link**.
 - Subject: `{subject_prefix} {N} net-new ICP companies — {RUN_DATE}`.
-- Default to **sending**; if the session is configured for review, create a **draft** instead and
-  tell Max.
 
 ## Step 9 — Log the run
 - Append a line to `runs/log.md`: date, # scanned, # net-new, # reported, sheet URL, and the list

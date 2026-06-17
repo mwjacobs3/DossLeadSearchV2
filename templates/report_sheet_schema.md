@@ -32,6 +32,25 @@ One sheet per run, titled `DOSS Lead Search — {RUN_DATE}`, saved in the Drive 
 | 23 | `LinkedIn URL` | If available |
 | 24 | `Date Added` | RUN_DATE |
 
+## Master tracker layout (sectioned by run)
+The deliverable is a **single** sheet titled `DOSS Lead Search — Master Tracker`, accumulating
+every run as a dated section, newest on top:
+
+```
+=== Run: 2026-06-20 — 4 net-new (Mezcla/De Soi lookalikes) ===
+Company, Website, ICP Fit Score, ... (full header row)
+<this run's rows>
+
+=== Run: 2026-06-17 — 18 net-new (Mezcla/De Soi lookalikes) ===
+Company, Website, ICP Fit Score, ... (full header row)
+<that run's rows>
+```
+
+- The append-only source of truth is `runs/leads_master.csv` (in git). Each run appends its rows
+  there first, then the Drive master sheet is rebuilt from it (the Drive MCP can't append in place).
+- A section banner is a single row whose first cell is `=== Run: {DATE} — {N} net-new ({focus}) ===`.
+- Repeat the column header row inside each section so each section is independently sortable.
+
 ## Build notes
 - Easiest path with the Drive MCP: assemble the rows as CSV and create the file with
   `content_mime_type: text/csv` (it auto-converts to a Google Sheet), or create a
