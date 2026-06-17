@@ -2,7 +2,20 @@
 
 | Run Date | Scanned | Net-new | Reported | Sheet | Notes |
 |----------|--------:|--------:|---------:|-------|-------|
+| 2026-06-17 (run 2) | ~45 | 9 | 9 | [Master Tracker](https://docs.google.com/spreadsheets/d/1TPOSYzahiZ9sqsclm__viQRupK8KnpSzmfuCisW2Cjo/edit) | Mezcla-profile, FUNDED, 20+ employees. find_similar pool exhausted → pivoted to ZoomInfo search_companies (US, F&B, 21-200 emp, fundingAmountMin, ≤$200M). All in-band ICP. ~36 candidates excluded as already-in-SFDC (heavy saturation). All 9 ALIVE. Email draft created. |
 | 2026-06-17 | 32 | 17 | 17 | [Master Tracker](https://docs.google.com/spreadsheets/d/1vzlc3MMp3gJA2mvOrvdPhxnNIUjCEUg4t0SIXQ_8ASg/edit) | Lookalike-led run (Mezcla + De Soi). Email draft created for max@doss.com. Website verification: removed Off The Cob (defunct); corrected Misha's domain → mishaskindfoods.com (18→17). ZoomInfo alive-check validated: 17 kept = ALIVE; Off The Cob = isDefunct/DEFUNCT_DOMAIN_DOWN. Added Company Status column. |
+
+### 2026-06-17 (run 2) — details
+Target: Mezcla-profile CPG, **funded + 20+ employees**, net-new.
+Method: ZoomInfo `find_similar_companies` (Mezcla) pool was exhausted for these filters (unfunded
+family Latin-food makers / co-packers / already-in-SFDC; only Motif had real funding + >20 emp and
+it **wound down in 2024** — caught by the web backstop). Pivoted to ZoomInfo `search_companies`:
+country US, industry Food & Beverage, employeeRangeMin 21 / max 200, fundingAmountMin 5000,
+revenue ≤ $200M. ~45 curated F&B brands screened; the vast majority were already in SFDC (heavy
+saturation on known funded better-for-you brands). All 9 net-new passed the ALIVE check.
+
+REPORTED (9, all in-band $11M–$38M): Starday, Cheribundi, Wicked Kitchen, Tomorrow Farms,
+Black Sheep Foods, Rebellyous Foods, Tender Food, True Essence Foods, Nature's Fynd.
 
 ### 2026-06-17 — details
 Focus: `config/focus.yaml` lookalikes of Mezcla (`481310726`) and De Soi (`566126302`).
