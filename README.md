@@ -35,16 +35,17 @@ highlights and a link.
 > from the append-only `runs/leads_master.csv`. The file URL changes on each rebuild — **bookmark
 > the [DOSS Lead Search folder](https://drive.google.com/drive/folders/1C0jSPsEvAmBmVgdtALCNv22dkR0NxQCK)**, not the file.
 
-## Scheduling (every 3 hours)
-Runs are triggered from **Claude Code on the web** — create a scheduled trigger on this repo with
-the prompt *"Run the DOSS lead search."* at your desired cadence (`config/settings.yaml →
-schedule.cadence`, currently `every_3_hours`). The pipeline **no-ops** (no new section, no email)
-when a run finds zero net-new companies, so frequent runs stay cheap and quiet. See
+## Scheduling
+Nothing in this repo runs on its own. A run happens only when an agent session is opened on the
+repo and follows the runbook. To make that recurring, create a **scheduled trigger in Claude Code
+on the web** pointed at this repo with the prompt *"Run the DOSS lead search."* The cadence lives
+on that trigger; `config/settings.yaml → schedule.cadence` (currently `daily`) is just
+documentation kept in sync with it. See
 https://code.claude.com/docs/en/claude-code-on-the-web for trigger setup.
 
-> Heads-up on cadence: trade publications and the ZoomInfo lookalike pool change slowly, so most
-> 3-hourly runs will find nothing new (and still spend some ZoomInfo credits). Daily or weekly is
-> usually plenty; 3-hourly is supported but largely redundant.
+The pipeline **no-ops** (no new section, no email) when a run finds zero net-new companies, so a
+tighter cadence is safe — just largely redundant, since trade publications and the ZoomInfo
+lookalike pool change slowly.
 
 ---
 

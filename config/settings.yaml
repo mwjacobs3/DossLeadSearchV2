@@ -65,12 +65,13 @@ delivery:
 dedup_across_runs: true
 
 schedule:
-  # Desired cadence. Actual scheduling is configured as a trigger in Claude Code on the web
-  # (https://code.claude.com/docs/en/claude-code-on-the-web) — the repo can't self-schedule.
-  cadence: every_3_hours
+  # DOCUMENTATION ONLY. This value does not trigger anything by itself — the repo cannot
+  # self-schedule. Recurring runs are fired by a trigger you create in Claude Code on the web
+  # (https://code.claude.com/docs/en/claude-code-on-the-web), which opens a session on this repo
+  # with `prompt` below. Keep this value in sync with the cadence you set on that trigger.
+  cadence: daily
   prompt: "Run the DOSS lead search."
-  # Cost/▾noise guidance: trade publications and the ZoomInfo lookalike pool change slowly, so
-  # most 3-hourly runs will find 0 net-new and consume ZoomInfo credits for little gain. The
-  # pipeline is built to NO-OP gracefully (no new section, no email) when there are no net-new
-  # companies — see RUNBOOK step 6b. Consider daily/weekly if credit usage becomes a concern.
+  # The pipeline NO-OPs gracefully (no new section, no email) when a run finds no net-new
+  # companies — see RUNBOOK step 6b — so a tighter cadence is safe, just largely redundant
+  # since trade pubs / the ZoomInfo lookalike pool change slowly.
   skip_report_when_no_new: true
