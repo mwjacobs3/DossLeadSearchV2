@@ -2,6 +2,7 @@
 
 | Run Date | Scanned | Net-new | Reported | Sheet | Notes |
 |----------|--------:|--------:|---------:|-------|-------|
+| 2026-06-17 (run 3) | ~38 | 0 | 0 | — (no-op) | Anchor: Magic Mind (Customer). Target: sizeable/active/successful functional-wellness brands. find_similar on Magic Mind was off-target (returned PM software). Pivoted to ZoomInfo search (US, F&B, functional kw, $25M-$250M, 50+ emp). Top 6 consumer matches ALL already in SFDC (So Good So You, G Fuel, Lifeway, Traditional Medicinals, Real Good Foods, Nature's Bakery); remainder were ingredient/CDMO/MLM (not ICP). 0 net-new → no section, no email (skip_report_when_no_new). |
 | 2026-06-17 (run 2) | ~45 | 9 | 9 | [Master Tracker](https://docs.google.com/spreadsheets/d/1TPOSYzahiZ9sqsclm__viQRupK8KnpSzmfuCisW2Cjo/edit) | Mezcla-profile, FUNDED, 20+ employees. find_similar pool exhausted → pivoted to ZoomInfo search_companies (US, F&B, 21-200 emp, fundingAmountMin, ≤$200M). All in-band ICP. ~36 candidates excluded as already-in-SFDC (heavy saturation). All 9 ALIVE. Email draft created. |
 | 2026-06-17 | 32 | 17 | 17 | [Master Tracker](https://docs.google.com/spreadsheets/d/1vzlc3MMp3gJA2mvOrvdPhxnNIUjCEUg4t0SIXQ_8ASg/edit) | Lookalike-led run (Mezcla + De Soi). Email draft created for max@doss.com. Website verification: removed Off The Cob (defunct); corrected Misha's domain → mishaskindfoods.com (18→17). ZoomInfo alive-check validated: 17 kept = ALIVE; Off The Cob = isDefunct/DEFUNCT_DOMAIN_DOWN. Added Company Status column. |
 
