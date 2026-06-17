@@ -9,41 +9,96 @@
 recency_window_days: 90
 
 # Industry publications to scan (homepages / news / funding sections).
+# Organized by coverage area. The pipeline prioritizes funding / launch / expansion items, which
+# is where net-new ICP brands show up. Prune any you don't want; add your own under any group.
 publications:
+
+  # --- Cross-CPG & emerging-brand / funding-focused (highest signal) ---
+  - name: NOSH
+    url: https://www.nosh.com/
+    focus: Entrepreneurial packaged-food brands, funding, distribution, CEO interviews
+  - name: BevNET
+    url: https://www.bevnet.com/news/
+    focus: Beverage brands, new products, funding rounds
+  - name: CPGWire
+    url: https://cpgwire.com/
+    focus: Food, beverage, cosmetics & wellness news + DTC funding aggregator (Dwight Funding)
+  - name: Startup CPG Newswire
+    url: https://startupcpg.com/newswire
+    focus: Press releases & business updates from early-stage CPG brands
+  - name: Startup CPG — Investors
+    url: https://startupcpg.com/investors
+    focus: CPG funding rounds & investor activity (emerging brands)
+  - name: Express Checkout (Substack)
+    url: https://expresscheckout.substack.com/
+    focus: CPG / consumer / retail / eCommerce brands, launches, categories, funding
+  - name: Consumer Goods Technology (CGT)
+    url: https://consumergoods.com/
+    focus: Consumer goods business, tech, operations & analytics news
+  - name: Adweek — CPG & Grocery
+    url: https://www.adweek.com/category/cpg-grocery/
+    focus: CPG brand marketing, launches & campaigns
+
+  # --- Food & beverage ---
   - name: Food Dive
     url: https://www.fooddive.com/
     focus: Food & beverage brand news, launches, M&A, funding
-  - name: BevNet
-    url: https://www.bevnet.com/news/
-    focus: Beverage brands, new products, funding rounds
-  - name: NOSH
-    url: https://www.bevnet.com/nosh/
-    focus: Natural / better-for-you food brands and funding
   - name: FoodNavigator-USA
     url: https://www.foodnavigator-usa.com/
     focus: Food & beverage industry, emerging brands, ingredients
+  - name: Food Business News
+    url: https://www.foodbusinessnews.net/
+    focus: Food & beverage manufacturing, brand & business news
+
+  # --- Beauty & personal care ---
   - name: Beauty Independent
     url: https://www.beautyindependent.com/
     focus: Indie & emerging beauty / personal care brands
+  - name: BeautyMatter
+    url: https://www.beautymatter.com/
+    focus: Beauty industry business, M&A and funding
   - name: Glossy
     url: https://www.glossy.co/
     focus: Beauty, fashion & wellness brand business news
+  - name: Happi
+    url: https://www.happi.com/
+    focus: Household & personal care products, formulators & brands
+
+  # --- Supplements, nutrition & wellness ---
+  - name: NutraIngredients-USA
+    url: https://www.nutraingredients-usa.com/
+    focus: Supplements, nutrition & functional brands (William Reed)
+  - name: Nutritional Outlook
+    url: https://www.nutritionaloutlook.com/
+    focus: Supplements & nutrition brands
+  - name: SupplySide Supplement Journal
+    url: https://supplysidesolutions.com/supplement-journal/
+    focus: Supplement product development, sourcing & brands
+
+  # --- Pet ---
+  - name: Pet Food Processing
+    url: https://www.petfoodprocessing.net/
+    focus: Pet food & treat brands and manufacturing
+  - name: Petfood Industry
+    url: https://www.petfoodindustry.com/
+    focus: Pet food brands, market & company news
+  - name: Pet Business
+    url: https://www.petbusiness.com/
+    focus: Pet products, supplies & brand news
+
+  # --- Apparel & soft goods ---
+  - name: Sourcing Journal
+    url: https://sourcingjournal.com/
+    focus: Apparel & soft goods brands and supply chain
+
+  # --- DTC / retail / emerging consumer brands ---
   - name: Modern Retail
     url: https://www.modernretail.co/
     focus: DTC & emerging consumer brands, retail expansion
   - name: Retail Brew
     url: https://www.retailbrew.com/
     focus: Retail & CPG brand news
-  - name: Nutritional Outlook
-    url: https://www.nutritionaloutlook.com/
-    focus: Supplements & nutrition brands
-  - name: Pet Food Processing
-    url: https://www.petfoodprocessing.net/
-    focus: Pet products & pet food brands
-  - name: Sourcing Journal
-    url: https://sourcingjournal.com/
-    focus: Apparel & soft goods brands and supply chain
-  - name: AdExchanger / Marketing Brew (brand launches)
+  - name: Marketing Brew
     url: https://www.marketingbrew.com/
     focus: Emerging consumer brand launches & campaigns
 
@@ -58,6 +113,11 @@ web_searches:
   - "food beverage startup new product launch 2026 co-manufacturer 3PL"
   - "apparel brand funding 2026 direct to consumer"
   - "consumer packaged goods brand opens new 3PL OR fulfillment 2026"
+  # Lookalike-tuned (see config/focus.yaml): functional / better-for-you F&B like Mezcla & De Soi
+  - "functional beverage brand raises funding 2026 adaptogen OR nootropic"
+  - "non-alcoholic drinks brand funding 2026"
+  - "plant-based OR better-for-you snack brand Series A OR Series B 2026"
+  - "clean label functional food startup raises seed OR Series A 2026"
 
 # X / Twitter discovery. There is no dedicated X MCP connected, so the pipeline scans X via web
 # search + fetch (X search result pages, and individual post URLs). Useful for catching funding

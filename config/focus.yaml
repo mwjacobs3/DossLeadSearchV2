@@ -1,0 +1,60 @@
+# Current campaign focus — "lookalike" targeting.
+#
+# This narrows a run toward a specific kind of company WITHOUT changing the permanent ICP gate
+# (config/icp.yaml). The ICP still decides "is this a DOSS fit?"; this file decides "which slice
+# of the ICP are we hunting right now?". Update it as the focus shifts.
+#
+# Current focus (set 2026-06-17): emerging, better-for-you / FUNCTIONAL food & beverage brands
+# that look like Mezcla and De Soi — recently funded, founder-led, outsourced production, scaling
+# from DTC into retail.
+
+active: true
+
+# Reference "anchor" accounts. The pipeline uses ZoomInfo find_similar_companies on these
+# (by companyId) as a primary discovery channel, and treats them as the bar for "looks like".
+anchors:
+  - name: Mezcla
+    domain: eatmezcla.com
+    zoominfo_company_id: "481310726"
+    note: Plant-based protein/snack bars; NYC; Series B $9.5M (Mar 2026); clean-label, vegan/GF
+  - name: De Soi
+    domain: drinkdesoi.com
+    zoominfo_company_id: "566126302"
+    note: Non-alcoholic adaptogenic apéritifs; founded 2022; $4M seed; functional better-for-you bev
+
+# The shared profile distilled from the anchors. Used for scoring boosts and search tuning.
+lookalike_profile:
+  categories:
+    - Functional / better-for-you food & beverage
+    - Plant-based / vegan snacks (bars, puffs, treats)
+    - Non-alcoholic / functional beverages (adaptogens, nootropics)
+    - Clean-label / gluten-free / non-GMO consumer food
+  positioning_keywords:
+    - functional
+    - better-for-you
+    - plant-based
+    - vegan
+    - gluten-free
+    - clean label
+    - adaptogen
+    - non-alcoholic
+    - "no/low sugar"
+    - mindful / wellness
+  stage:
+    funding_rounds: [Pre-Seed, Seed, Series A, Series B]
+    founded_after_year: 2015        # young, modern brands
+    recently_funded_months: 24      # raised within the last ~2 years
+  size:
+    # Anchors are pre-$10M today, so for THIS focus we deliberately fish below the ICP floor to
+    # catch brands early. ICP best-fit ($10M-$200M) still scores highest; these are "grow-into-it".
+    revenue_usd: { min: 1000000, max: 75000000 }
+    employees:   { min: 5, max: 150 }
+  geography:
+    countries: [United States, Canada]
+  business_model: [b2c, b2b2c, dtc, wholesale, retail]
+  manufacturing: Outsourced (co-packers / co-manufacturers / 3PLs) expected
+
+# How strongly to bias a run toward this focus.
+# - "boost": surface lookalikes first but still allow other ICP-fit companies (recommended).
+# - "strict": only report companies matching the lookalike profile this run.
+mode: boost

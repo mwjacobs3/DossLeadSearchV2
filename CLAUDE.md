@@ -10,6 +10,9 @@ When asked to "run the DOSS lead search" (or similar), **follow
 - `config/icp.yaml` — the ICP gate (from the official one-pager; see `docs/icp_source.md`)
 - `config/sources.yaml` — publications + web searches to scan **(Max owns this list)**
 - `config/settings.yaml` — delivery targets, run size, dedup keys
+- `config/focus.yaml` — current campaign focus / "lookalike" targeting (anchors + profile).
+  When active, run ZoomInfo `find_similar_companies` on the anchors first and bias scoring toward
+  the lookalike profile. Currently focused on emerging functional F&B brands like Mezcla & De Soi.
 
 Supporting specs: `playbook/dedup.md` (Salesforce dedup + domain normalization),
 `playbook/scoring.md` (ICP fit rubric), `templates/` (Sheet schema + email body).

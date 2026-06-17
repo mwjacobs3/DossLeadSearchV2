@@ -70,7 +70,8 @@ https://code.claude.com/docs/en/claude-code-on-the-web for trigger setup.
 ```
 config/
   icp.yaml              # DOSS official ICP (revenue, size, geo, categories, disqualifiers)
-  sources.yaml          # Publications + web searches to scan  <-- EDIT / EXTEND THIS
+  sources.yaml          # Publications + web searches + X to scan  <-- EDIT / EXTEND THIS
+  focus.yaml            # Current "lookalike" campaign focus (anchors + profile)
   settings.yaml         # Delivery targets, run size, dedup keys
 playbook/
   RUNBOOK.md            # The step-by-step pipeline the agent executes

@@ -24,24 +24,38 @@ From `config/icp.yaml`, hold these in mind for screening:
 - Disqualifiers: pure software/services, heavy in-house manufacturing, already on full ERP,
   complex WMS, and industries government / pharma-hospital / real estate / restaurants / VC.
 
+## Step 1b — Apply current focus (if `config/focus.yaml: active`)
+If a focus campaign is active, this run is biased toward a specific slice of the ICP (currently:
+emerging, better-for-you / functional F&B brands that **look like the `anchors`** — Mezcla, De Soi).
+- In `mode: boost`, surface lookalikes first but still allow other ICP-fit companies.
+- In `mode: strict`, only report companies matching `focus.lookalike_profile`.
+- Note the focus profile (categories, positioning keywords, stage, size) for use in Steps 2 & 6.
+- The focus `size` band intentionally dips below the $10M ICP floor to catch brands early; ICP
+  best-fit still scores highest (see scoring).
+
 ## Step 2 — Discover candidate companies
 Build a raw candidate list (aim for up to `max_candidates_to_screen`).
 
-**2a. Publications + web searches.** For each entry in `sources.yaml`:
+**2a. Lookalike discovery via ZoomInfo (run FIRST when focus is active).** For each
+`focus.anchors[].zoominfo_company_id`, call **ZoomInfo `find_similar_companies`** to get a ranked
+list of companies that "look like" the anchor. Take the top matches, then proceed to dedup/enrich.
+This is the most direct lookalike engine — start here when a focus is set.
+
+**2b. Publications + web searches.** For each entry in `sources.yaml`:
 - Use **WebSearch** for each `web_searches` query and **WebFetch** on `publications` URLs (and
   promising article links) to extract recently-mentioned companies within `recency_window_days`.
 - For each candidate capture: **company name**, **website** (if shown), and a one-line
   **why-surfaced** note with the **source URL** (e.g. "Raised $12M Series A — Food Dive, 2026-05").
 - Prefer brands tied to a *signal*: funding, product launch, retail expansion, new 3PL/warehouse.
 
-**2b. X / Twitter (if `sources.yaml: x_discovery.enabled`).** No dedicated X MCP is connected, so
+**2c. X / Twitter (if `sources.yaml: x_discovery.enabled`).** No dedicated X MCP is connected, so
 scan X through the web tools:
 - Run each `x_discovery.searches` query with **WebSearch** (they're scoped with `site:x.com` /
   `site:twitter.com`), and **WebFetch** promising post URLs to extract the brand + claim.
 - Also search the monitored `handles_to_monitor` and `hashtags` for recent funding/launch posts.
 - Resolve each brand to a website before it enters the candidate list.
 
-**2c. ZoomInfo discovery (if `sources.yaml: zoominfo_discovery.enabled`).** Complement the
+**2d. ZoomInfo discovery (if `sources.yaml: zoominfo_discovery.enabled`).** Complement the
 publications by surfacing brands they miss:
 - Use **ZoomInfo `search_scoops`** with `scoopTypes: [Funding]`, `publishedStartDate` =
   RUN_DATE − `scoop_window_days`, plus ICP company filters (industry, revenue, employees, US/CA).

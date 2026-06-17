@@ -16,6 +16,17 @@ the report useful to an AE.
 | **System / pain signal** | 10 | 10 if on QuickBooks + spreadsheets / broken stack / no ERP. 5 if unknown. 0 if already on a full ERP (NetSuite, Intacct, Dynamics, Epicor, Acumatica, SAP). |
 | **Momentum signal** | 10 | 10 if recent funding / launch / retail or 3PL expansion (the reason it surfaced). 5 if older signal. 0 if none. |
 
+## Current-focus boost (if `config/focus.yaml: active`)
+When a focus campaign is active, bias ordering toward the lookalike profile (currently: emerging
+better-for-you / functional F&B brands like Mezcla & De Soi):
+- **+15 lookalike bonus** if the company matches `focus.lookalike_profile` (category + positioning
+  keywords + recently-funded stage). This can push a promising sub-$10M emerging brand above a
+  larger but less-relevant ICP company.
+- In `mode: strict`, **exclude** anything that doesn't match the lookalike profile.
+- A sub-$10M anchor-style brand that is fast-growing and recently funded should land **Possible**
+  or better even though it's under the core revenue band — note "below ICP floor, early-stage" in
+  the rationale.
+
 ## Tiers
 - **Strong fit:** score ≥ 70 **and** no hard disqualifier.
 - **Possible fit:** 50–69, or strong but with one unknown dimension.
