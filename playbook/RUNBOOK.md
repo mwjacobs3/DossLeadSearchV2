@@ -101,6 +101,23 @@ For each screened candidate, determine if it already exists in Salesforce. **Fol
 - If ZoomInfo returns no match, keep the candidate but mark firmographics "Not in ZoomInfo" and
   fill what you can from the publication/web source.
 
+## Step 5b — Verify website + that the company is a live, matching business
+Data-accuracy gate before anything goes in the report (see `playbook/data_quality.md`). For each
+enriched candidate:
+- **Confirm the working website.** ZoomInfo's domain is sometimes a stale legal-entity domain
+  (e.g. it returned `lovemishas.com` for Misha's Kind Foods, whose live site is
+  `mishaskindfoods.com`). Verify with **WebSearch** that the brand's official site resolves and the
+  domain matches the brand; correct the domain if it doesn't. (Note: WebFetch/curl often get HTTP
+  403 from this environment's egress even for healthy sites, so use the search index as the signal,
+  not a raw fetch.)
+- **Confirm the company is still operating.** Drop brands that are defunct / wound down (e.g. Off
+  The Cob was out of business; Aurora Elixirs was winding down). Search "<brand> out of business /
+  closed" if unsure.
+- **Confirm brand ↔ firmographics match** (the ZoomInfo record is actually this brand, not a
+  same-named company). 
+- Record the outcome in the **Website Verified** column ("Yes — {date}", or note a correction).
+  Anything you can't verify → flag it and lower confidence rather than shipping it silently.
+
 ## Step 6 — Score & finalize
 - Apply the rubric in `playbook/scoring.md` to compute an **ICP fit score (0–100)**, a **tier**
   (Strong / Possible / Stretch), a short **rationale**, and any **disqualifier flags**.

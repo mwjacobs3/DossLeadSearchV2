@@ -2,7 +2,7 @@
 
 | Run Date | Scanned | Net-new | Reported | Sheet | Notes |
 |----------|--------:|--------:|---------:|-------|-------|
-| 2026-06-17 | 32 | 18 | 18 | [Sheet](https://docs.google.com/spreadsheets/d/1Z0eYjoXyH58PKCFq8SkPD7B3Qb32ZpT9cvwQ3inLgPc/edit) | Lookalike-led run (Mezcla + De Soi). Email draft created for max@doss.com. |
+| 2026-06-17 | 32 | 17 | 17 | [Master Tracker](https://docs.google.com/spreadsheets/d/1WSfuy1uxWCQeGtusXQlvaPUVheExg0we_B3gHwqFyck/edit) | Lookalike-led run (Mezcla + De Soi). Email draft created for max@doss.com. After website verification: removed Off The Cob (defunct); corrected Misha's domain lovemishas.com → mishaskindfoods.com. 18 → 17. |
 
 ### 2026-06-17 — details
 Focus: `config/focus.yaml` lookalikes of Mezcla (`481310726`) and De Soi (`566126302`).

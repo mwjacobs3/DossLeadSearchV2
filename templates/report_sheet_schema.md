@@ -31,6 +31,7 @@ One sheet per run, titled `DOSS Lead Search — {RUN_DATE}`, saved in the Drive 
 | 22 | `ZoomInfo Company ID` | For future dedup / SFDC import |
 | 23 | `LinkedIn URL` | If available |
 | 24 | `Date Added` | RUN_DATE |
+| 25 | `Website Verified` | "Yes — {date}" once the site is confirmed live + brand-matched (Step 5b); note any correction |
 
 ## Master tracker layout (sectioned by run)
 The deliverable is a **single** sheet titled `DOSS Lead Search — Master Tracker`, accumulating

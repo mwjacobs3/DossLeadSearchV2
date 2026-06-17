@@ -15,7 +15,9 @@ When asked to "run the DOSS lead search" (or similar), **follow
   the lookalike profile. Currently focused on emerging functional F&B brands like Mezcla & De Soi.
 
 Supporting specs: `playbook/dedup.md` (Salesforce dedup + domain normalization),
-`playbook/scoring.md` (ICP fit rubric), `templates/` (Sheet schema + email body).
+`playbook/scoring.md` (ICP fit rubric), `playbook/data_quality.md` (verification + checks &
+balances — always verify the website resolves and matches, and that the company is still
+operating, before reporting it), `templates/` (Sheet schema + email body).
 
 ## Required MCP integrations
 Salesforce (read-only), ZoomInfo, Web search/fetch, Gmail, Google Drive.
