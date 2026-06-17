@@ -34,12 +34,25 @@ zoominfo:
     - foundedYear
     - businessModel
     - type
+    - isDefunct          # automated alive-check (see alive_check below)
+    - companyStatus      # e.g. ALIVE, DEFUNCT_DOMAIN_DOWN
+    - companyStatusDate
     - companyFunding
     - totalFundingAmount
     - recentFundingAmount
     - recentFundingDate
     - socialMediaUrls
   pull_funding_scoops: true     # also call enrich_scoops (Funding) for round/investor detail
+  # Automated alive-check: drop companies ZoomInfo marks as not operating, before they reach the
+  # report. Validated 2026-06-17 (Off The Cob -> isDefunct:true / DEFUNCT_DOMAIN_DOWN; the 17 kept
+  # leads -> ALIVE). Web-search verification (RUNBOOK step 5b) still runs to catch stale domains
+  # that ZoomInfo lists for a live company (e.g. Misha's lovemishas.com vs mishaskindfoods.com).
+  alive_check:
+    enabled: true
+    drop_if_isDefunct: true
+    # Statuses to drop (in addition to isDefunct:true). ALIVE is kept; anything DEFUNCT* is dropped.
+    drop_statuses: [DEFUNCT_DOMAIN_DOWN, DEFUNCT, OUT_OF_BUSINESS, ACQUIRED_DEFUNCT]
+    record_status_in_report: true   # write Company Status into the sheet
 
 delivery:
   email:

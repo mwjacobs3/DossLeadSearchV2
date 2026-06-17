@@ -97,6 +97,8 @@ For each screened candidate, determine if it already exists in Salesforce. **Fol
   or `companyName`. Request `zoominfo.enrich_fields` from settings.
 - If `zoominfo.pull_funding_scoops`, also call **`enrich_scoops`** with `scoopTypes: [Funding]`
   to capture round type, amount, date, and investors.
+- Request the `zoominfo.enrich_fields` including **`isDefunct`, `companyStatus`,
+  `companyStatusDate`** — these drive the automated alive-check in Step 5b.
 - Capture the **ZoomInfo company id** for each (used for the sheet + future dedup).
 - If ZoomInfo returns no match, keep the candidate but mark firmographics "Not in ZoomInfo" and
   fill what you can from the publication/web source.
@@ -110,9 +112,13 @@ enriched candidate:
   domain matches the brand; correct the domain if it doesn't. (Note: WebFetch/curl often get HTTP
   403 from this environment's egress even for healthy sites, so use the search index as the signal,
   not a raw fetch.)
-- **Confirm the company is still operating.** Drop brands that are defunct / wound down (e.g. Off
-  The Cob was out of business; Aurora Elixirs was winding down). Search "<brand> out of business /
-  closed" if unsure.
+- **Automated alive-check (`zoominfo.alive_check`).** Drop any company with ZoomInfo
+  `isDefunct: true` or a `companyStatus` in `drop_statuses` (e.g. `DEFUNCT_DOMAIN_DOWN`). Validated
+  2026-06-17: Off The Cob → `DEFUNCT_DOMAIN_DOWN`/`isDefunct:true`; the 17 kept leads → `ALIVE`.
+  Record `companyStatus` in the report. This is the first, cheap gate.
+- **Backstop the status with a quick check** for borderline/younger brands ZoomInfo may not have
+  re-verified — search "<brand> out of business / closed" if `companyStatusDate` is stale or status
+  is ambiguous (e.g. Aurora Elixirs was winding down).
 - **Confirm brand ↔ firmographics match** (the ZoomInfo record is actually this brand, not a
   same-named company). 
 - Record the outcome in the **Website Verified** column ("Yes — {date}", or note a correction).

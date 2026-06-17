@@ -11,10 +11,16 @@ with sourced firmographics and honest confidence. Apply these on every run.
   **403** even from healthy Shopify/e-comm sites. Use the search index as the liveness signal.
 - Record `Website Verified` = "Yes — {date}" (or note the correction).
 
-## 2. Company-is-alive check
-- Drop **defunct / wound-down** brands (they're not leads and they pollute the list).
-  - *Examples this run:* Off The Cob (out of business), Aurora Elixirs (winding down).
-- If unsure, search "<brand> out of business / closed / acquired".
+## 2. Company-is-alive check (automated via ZoomInfo)
+- **Primary, automated gate:** drop any company with ZoomInfo `isDefunct: true` or a
+  `companyStatus` in `settings.zoominfo.alive_check.drop_statuses` (e.g. `DEFUNCT_DOMAIN_DOWN`).
+  Request `isDefunct` / `companyStatus` / `companyStatusDate` during enrichment and record the
+  status in the report.
+  - *Validated 2026-06-17:* Off The Cob → `isDefunct:true` / `DEFUNCT_DOMAIN_DOWN`; the 17 kept
+    leads all returned `ALIVE`.
+- **Backstop:** for young brands ZoomInfo may not have re-verified (stale `companyStatusDate`) or
+  ambiguous status, search "<brand> out of business / closed / acquired" (caught Aurora Elixirs,
+  winding down).
 
 ## 3. Identity / disambiguation
 - Confirm the ZoomInfo record is **this** brand, not a same-named company (common for generic

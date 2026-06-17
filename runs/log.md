@@ -2,7 +2,7 @@
 
 | Run Date | Scanned | Net-new | Reported | Sheet | Notes |
 |----------|--------:|--------:|---------:|-------|-------|
-| 2026-06-17 | 32 | 17 | 17 | [Master Tracker](https://docs.google.com/spreadsheets/d/1WSfuy1uxWCQeGtusXQlvaPUVheExg0we_B3gHwqFyck/edit) | Lookalike-led run (Mezcla + De Soi). Email draft created for max@doss.com. After website verification: removed Off The Cob (defunct); corrected Misha's domain lovemishas.com → mishaskindfoods.com. 18 → 17. |
+| 2026-06-17 | 32 | 17 | 17 | [Master Tracker](https://docs.google.com/spreadsheets/d/1vzlc3MMp3gJA2mvOrvdPhxnNIUjCEUg4t0SIXQ_8ASg/edit) | Lookalike-led run (Mezcla + De Soi). Email draft created for max@doss.com. Website verification: removed Off The Cob (defunct); corrected Misha's domain → mishaskindfoods.com (18→17). ZoomInfo alive-check validated: 17 kept = ALIVE; Off The Cob = isDefunct/DEFUNCT_DOMAIN_DOWN. Added Company Status column. |
 
 ### 2026-06-17 — details
 Focus: `config/focus.yaml` lookalikes of Mezcla (`481310726`) and De Soi (`566126302`).
