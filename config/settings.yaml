@@ -1,0 +1,53 @@
+# Run + delivery settings.
+
+run:
+  target_company_count: 20      # final list size (15-25 recommended)
+  max_candidates_to_screen: 60  # cap on raw candidates pulled before dedup/enrichment
+  sort_by: icp_fit_score        # final report ordering (descending)
+
+salesforce:
+  # A candidate is "already known" if ANY Account matches on these keys (any status,
+  # including churned / closed-lost / disqualified — we don't want to re-surface them).
+  dedup_keys:
+    - website_domain            # primary: normalized root domain (see playbook/dedup.md)
+    - name                      # fuzzy name match as secondary
+    - ZoomInfo_Company_ID__c    # if the candidate has a ZoomInfo ID
+    - LinkedIn_URL__c
+  # Also check Leads, not just Accounts, so we don't surface something already being worked.
+  check_leads: true
+
+zoominfo:
+  # Fields to request during company enrichment (see RUNBOOK step 4).
+  enrich_fields:
+    - name
+    - website
+    - description
+    - primaryIndustry
+    - industries
+    - revenue
+    - revenueRange
+    - employeeCount
+    - employeeRange
+    - city
+    - state
+    - country
+    - foundedYear
+    - businessModel
+    - type
+    - companyFunding
+    - totalFundingAmount
+    - recentFundingAmount
+    - recentFundingDate
+    - socialMediaUrls
+  pull_funding_scoops: true     # also call enrich_scoops (Funding) for round/investor detail
+
+delivery:
+  email:
+    enabled: true
+    to: max@doss.com
+    subject_prefix: "[DOSS Lead Search]"
+  google_drive:
+    enabled: true
+    folder_name: "DOSS Lead Search"   # created in My Drive if it doesn't exist
+    format: google_sheet
+    # One sheet per run, titled with the run date (see RUNBOOK step 6).

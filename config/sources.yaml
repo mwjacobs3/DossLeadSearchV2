@@ -1,0 +1,98 @@
+# Sources scanned each run for candidate companies.
+#
+# >>> MAX TO CONFIRM / EXTEND <<<
+# This is seeded with recommended CPG industry publications and web searches. Replace or extend
+# with DOSS's preferred publications and exact search terms. The pipeline scans everything listed
+# here for companies mentioned in the recency window (funding, product launches, expansion, etc.).
+
+# How far back to consider a mention "fresh".
+recency_window_days: 90
+
+# Industry publications to scan (homepages / news / funding sections).
+publications:
+  - name: Food Dive
+    url: https://www.fooddive.com/
+    focus: Food & beverage brand news, launches, M&A, funding
+  - name: BevNet
+    url: https://www.bevnet.com/news/
+    focus: Beverage brands, new products, funding rounds
+  - name: NOSH
+    url: https://www.bevnet.com/nosh/
+    focus: Natural / better-for-you food brands and funding
+  - name: FoodNavigator-USA
+    url: https://www.foodnavigator-usa.com/
+    focus: Food & beverage industry, emerging brands, ingredients
+  - name: Beauty Independent
+    url: https://www.beautyindependent.com/
+    focus: Indie & emerging beauty / personal care brands
+  - name: Glossy
+    url: https://www.glossy.co/
+    focus: Beauty, fashion & wellness brand business news
+  - name: Modern Retail
+    url: https://www.modernretail.co/
+    focus: DTC & emerging consumer brands, retail expansion
+  - name: Retail Brew
+    url: https://www.retailbrew.com/
+    focus: Retail & CPG brand news
+  - name: Nutritional Outlook
+    url: https://www.nutritionaloutlook.com/
+    focus: Supplements & nutrition brands
+  - name: Pet Food Processing
+    url: https://www.petfoodprocessing.net/
+    focus: Pet products & pet food brands
+  - name: Sourcing Journal
+    url: https://sourcingjournal.com/
+    focus: Apparel & soft goods brands and supply chain
+  - name: AdExchanger / Marketing Brew (brand launches)
+    url: https://www.marketingbrew.com/
+    focus: Emerging consumer brand launches & campaigns
+
+# Web searches to run each cycle. Use {window} to reference the recency window if helpful.
+# Tune these toward funding + launch + expansion language for emerging CPG brands.
+web_searches:
+  - "CPG brand raises seed OR Series A OR Series B 2026 food beverage"
+  - "emerging beauty OR skincare brand funding round 2026"
+  - "supplement brand Series A funding 2026"
+  - "pet brand raises funding 2026"
+  - "DTC consumer brand expands to retail 2026 Target OR Whole Foods OR Sprouts"
+  - "food beverage startup new product launch 2026 co-manufacturer 3PL"
+  - "apparel brand funding 2026 direct to consumer"
+  - "consumer packaged goods brand opens new 3PL OR fulfillment 2026"
+
+# X / Twitter discovery. There is no dedicated X MCP connected, so the pipeline scans X via web
+# search + fetch (X search result pages, and individual post URLs). Useful for catching funding
+# announcements, founder posts, and launches before they hit the trade press.
+# Tips: target high-signal accounts and hashtags; the agent will resolve brand -> website.
+x_discovery:
+  enabled: true
+  # Queries run as web searches scoped to X (e.g. prefixed with "site:x.com" / "site:twitter.com").
+  searches:
+    - "site:x.com CPG brand \"we raised\" seed OR Series A 2026"
+    - "site:x.com excited to announce raised food OR beverage brand 2026"
+    - "site:x.com beauty OR skincare brand launch funding 2026"
+    - "site:x.com (CPG OR DTC) brand now available at Target OR Whole Foods 2026"
+  # High-signal accounts/handles to monitor (VCs, CPG news, accelerators). Max to extend.
+  handles_to_monitor:
+    - "@BevNET"
+    - "@FoodDive"
+    - "@glossy"
+    - "@ModernRetail"
+    - "@CPGDIVE"
+  # Hashtags worth scanning.
+  hashtags:
+    - "#CPG"
+    - "#DTC"
+    - "#foodstartup"
+    - "#emergingbrands"
+
+# Optional: ZoomInfo-native discovery as a complementary source (see RUNBOOK step 2b).
+# Uses ZoomInfo scoops (Funding) + company search filtered to the ICP, for brands the
+# publications miss. Disable if you want a publications-only run.
+zoominfo_discovery:
+  enabled: true
+  scoop_types: [Funding]
+  scoop_window_days: 90
+
+# Companies / domains to always skip (e.g. known non-fits, competitors, partners).
+exclude_domains: []
+exclude_names: []

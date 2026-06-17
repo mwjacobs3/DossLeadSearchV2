@@ -1,0 +1,61 @@
+# DOSS Ideal Customer Profile (ICP)
+# Source: official "Best fit prospects" one-pager (sales enablement). See docs/icp_source.md.
+# Last updated: 2026-06-17
+#
+# This file is the gate the pipeline screens candidates against. "Best fit" is a guide, not a
+# hard wall — borderline companies should be surfaced with a note, not silently dropped.
+
+best_fit:
+  revenue_usd:
+    min: 10000000          # $10M
+    max: 200000000         # $200M  (core best-fit band)
+    stretch_max: 500000000 # Engage $200M-$500M+ inbound too; longer cycle. Do NOT turn away.
+  employees:
+    min: 10
+    max: 500
+  geography:
+    countries: [United States, Canada]
+  product_categories:        # "anything with physical inventory"
+    - Food & Beverage
+    - Beauty & Cosmetics
+    - Supplements
+    - Health & Wellness
+    - Personal Care
+    - Home Goods
+    - Furniture
+    - Pet Products
+    - Apparel
+    - Consumer Electronics
+  manufacturing_model:       # MUST mostly outsource production
+    required: Uses co-manufacturers and/or 3PLs (outsourced production)
+  current_systems:           # pain signal — lightweight or broken stack, NOT a real ERP
+    - QuickBooks + spreadsheets
+    - Broken / failed tool stack
+    - No dedicated ERP / operations system
+
+# Positive signals that raise fit confidence (see playbook/scoring.md)
+positive_signals:
+  - Fast-growing and/or recently funded (seed - Series C)
+  - "Drowning in manual processes" / scaling operations pain
+  - Outsourced manufacturing (co-manufacturers, 3PLs)
+  - Currently on QuickBooks + spreadsheets
+  - Expanding SKUs, retail doors, or sales channels (DTC + wholesale + retail)
+  - Recently expanded a warehouse / 3PL footprint
+
+# Hard disqualifiers — exclude (flag the reason in the report)
+disqualifiers:
+  - No physical inventory (pure software or services company)
+  - Heavy in-house manufacturing & warehousing with limited-to-no outsourcing
+  - Already on or actively requires a full ERP (NetSuite, Intacct, Microsoft Dynamics, Epicor, Acumatica, SAP)
+  - Needs complex WMS build-out
+  - Industry is Government
+  - Industry is Pharmaceuticals / hospitals
+  - Industry is Real estate
+  - Industry is Restaurants (food service, not packaged product)
+  - Industry is a VC / investment firm
+  - Headquartered outside the US / Canada
+
+notes:
+  - "Best fit is a guide, not a hard gate — there may be fits outside these parameters. Flag, don't drop."
+  - "Do not turn away inbound $200M-$500M+ companies; longer sales cycle but we engage them."
+  - "DOSS is operations-first (orders, inventory, procurement, fulfillment), AI-native, and flexible vs. rigid legacy ERPs."
